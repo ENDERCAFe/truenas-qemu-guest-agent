@@ -13,18 +13,18 @@ qga_backup_dir="/root/qga_backup"
 
 # Download FreeBSD 13.1 kernel.txz and extract virtio_console.ko driver to /boot/kernel
 echo -e "\nDownloading FreeBSD 13.1 kernel.txz and extracting virtio_console.ko driver to /boot/kernel..."
-#curl -#O ${freebsd13_kernel} --output-dir /tmp/
-#tar -xf /tmp/kernel.txz --strip-components=3 -C /boot/modules/ ./boot/kernel/virtio_console.ko 1> /dev/null
+curl -#O ${freebsd13_kernel} --output-dir /tmp/
+tar -xf /tmp/kernel.txz --strip-components=3 -C /boot/modules/ ./boot/kernel/virtio_console.ko 1> /dev/null
 
 # Load virtio_console.ko driver
-#kldload /boot/modules/virtio_console.ko
+kldload /boot/modules/virtio_console.ko
 
 # Download and install FreeBSD 13 qemu-guest-agent package
 echo -e "\nDownloading and installing FreeBSD 13 qemu-guest-agent package..."
 IGNORE_OSVERSION=yes pkg add ${freebsd13_qga_pkg} 1> /dev/null
 
 # Create backup of qemu-guest-agent file
-#mkdir ${qga_backup_dir}
+mkdir ${qga_backup_dir}
 cp /usr/local/etc/rc.d/qemu-guest-agent ${qga_backup_dir}/
 
 export TERM=dumb
